@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sonido Vivo - Pagina de Contacto</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="bg-azalea/30 text-gray-800 font-sans flex flex-col min-h-screen">
+
+  <header class="bg-scampi text-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-bold text-bittersweet tracking-wider">SONIDO VIVO</a>
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-azalea">Inicio</a>
+        <a href="contacto.html" class="hover:text-azalea">Contacto</a>
+        <a href="nosotros.html" class="hover:text-azalea">Nosotros</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <a href="registro.html" class="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition">Registrarse</a>
+        <a href="login.html" class="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition">Ingresar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow container mx-auto px-4 py-10 flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-xl border border-poloblue w-full max-w-lg">
+      <h2 class="text-2xl font-bold text-scampi mb-6 text-center border-b pb-3">Contáctanos</h2>
+
+      <form onsubmit="handleContacto(event)" class="space-y-4" novalidate>
+        
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Nombre Completo:</label>          
+          <input type="text" id="contactoNombre" placeholder="Tu Nombre" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+          <p id="errContactoNombre" class="text-red-500 text-xs mt-1 font-medium hidden">Por favor ingresa tu nombre (mínimo 3 caracteres).</p>    
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Correo Electrónico:</label>
+          <input type="email" id="contactoCorreo" placeholder="ejemplo@dominio.com" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+          <p id="errContactoCorreo" class="text-red-500 text-xs mt-1 font-medium hidden">Por favor ingresa un correo válido (ejemplo@dominio.com).</p>        
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Asunto:</label>
+          <input type="text" id="contactoAsunto" placeholder="Motivo de tu consulta" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+          <p id="errContactoAsunto" class="text-red-500 text-xs mt-1 font-medium hidden">El asunto no puede estar vacío (mínimo 4 caracteres).</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Mensaje:</label>
+          <textarea id="contactoMensaje" rows="4" placeholder="Escribe tu mensaje aquí..." class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"></textarea>
+          <p id="errContactoMensaje" class="text-red-500 text-xs mt-1 font-medium hidden">El mensaje debe tener al menos 10 caracteres.</p>
+        </div>
+
+        <button type="submit" class="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4">
+          Enviar Mensaje
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-scampi text-azalea text-xs py-6 text-center">
+    <p>&copy; 2026 Tienda Sonido Vivo. Viña del Mar, Chile.</p>
+  </footer>
+  
+  <script src="./js/app.js"></script> 
+</body>
+</html>

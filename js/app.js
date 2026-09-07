@@ -58,7 +58,7 @@ function handleLogin(event) {
 
   const regexCorreo = /^[\w-\.]+@[\w-]+\.[\w-]{2,}$/i;
 
-  // Validar Correo
+
   if (!regexCorreo.test(correo)) {
     if (errCorreo) errCorreo.classList.remove('hidden');
     esValido = false;
@@ -66,7 +66,7 @@ function handleLogin(event) {
     if (errCorreo) errCorreo.classList.add('hidden');
   }
 
-  // Validar Contraseña
+
   if (pass.length < 4 || pass.length > 10) {
     if (errPass) errPass.classList.remove('hidden');
     esValido = false;
@@ -77,5 +77,56 @@ function handleLogin(event) {
   if (esValido) {
     alert('¡Inicio de sesión exitoso!');
     window.location.href = 'index.html';
+  }
+}
+
+// Validaciones para la Pagina de Contacto
+function handleContacto(event) {
+  event.preventDefault();
+  let esValido = true;
+
+  const nombre = document.getElementById('contactoNombre')?.value.trim() || '';
+  const correo = document.getElementById('contactoCorreo')?.value.trim() || '';
+  const asunto = document.getElementById('contactoAsunto')?.value.trim() || '';
+  const mensaje = document.getElementById('contactoMensaje')?.value.trim() || '';
+
+  const errNombre = document.getElementById('errContactoNombre');
+  const errCorreo = document.getElementById('errContactoCorreo');
+  const errAsunto = document.getElementById('errContactoAsunto');
+  const errMensaje = document.getElementById('errContactoMensaje');
+
+  const regexCorreo = /^[\w-\.]+@[\w-]+\.[\w-]{2,}$/i;
+
+  if (nombre.length < 3) {
+    if (errNombre) errNombre.classList.remove('hidden');
+    esValido = false;
+  } else {
+    if (errNombre) errNombre.classList.add('hidden');
+  }
+
+  if (!regexCorreo.test(correo)) {
+    if (errCorreo) errCorreo.classList.remove('hidden');
+    esValido = false;
+  } else {
+    if (errCorreo) errCorreo.classList.add('hidden');
+  }
+
+  if (asunto.length < 4) {
+    if (errAsunto) errAsunto.classList.remove('hidden');
+    esValido = false;
+  } else {
+    if (errAsunto) errAsunto.classList.add('hidden');
+  }
+
+  if (mensaje.length < 10) {
+    if (errMensaje) errMensaje.classList.remove('hidden');
+    esValido = false;
+  } else {
+    if (errMensaje) errMensaje.classList.add('hidden');
+  }
+
+  if (esValido) {
+    alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.');
+    document.querySelector('form').reset();
   }
 }
