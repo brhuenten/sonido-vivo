@@ -23,7 +23,27 @@
   </header>
 
   <main class="flex-grow container mx-auto px-4 py-10 flex justify-center items-center">
+    
+    <div class="bg-white p-8 rounded-lg shadow-xl border border-poloblue w-full max-w-md">
+      <h2 class="text-2xl font-bold text-scampi mb-6 text-center border-b pb-3">Iniciar Sesión</h2>
 
+      <form class="space-y-4">
+
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Correo Electrónico:</label>
+          <input type="email" id="loginCorreo" placeholder="ejemplo@dominio.com" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Contraseña:</label>
+          <input type="password" id="loginPass" placeholder="••••••••" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        </div>
+
+        <button type="submit" class="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4">
+          Ingresar
+        </button>
+      </form>
+    </div>
   </main>
 
   <footer class="bg-scampi text-azalea text-xs py-6 text-center">
