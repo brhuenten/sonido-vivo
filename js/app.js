@@ -44,3 +44,38 @@ function handleRegistro(e) {
     window.location.href = 'login.html';
   }
 }
+
+// Validaciones para la Pagina de Login
+function handleLogin(event) {
+  event.preventDefault();
+  let esValido = true;
+
+  const correo = document.getElementById('loginCorreo')?.value.trim() || '';
+  const pass = document.getElementById('loginPass')?.value.trim() || '';
+
+  const errCorreo = document.getElementById('errLoginCorreo');
+  const errPass = document.getElementById('errLoginPass');
+
+  const regexCorreo = /^[\w-\.]+@[\w-]+\.[\w-]{2,}$/i;
+
+  // Validar Correo
+  if (!regexCorreo.test(correo)) {
+    if (errCorreo) errCorreo.classList.remove('hidden');
+    esValido = false;
+  } else {
+    if (errCorreo) errCorreo.classList.add('hidden');
+  }
+
+  // Validar Contraseña
+  if (pass.length < 4 || pass.length > 10) {
+    if (errPass) errPass.classList.remove('hidden');
+    esValido = false;
+  } else {
+    if (errPass) errPass.classList.add('hidden');
+  }
+
+  if (esValido) {
+    alert('¡Inicio de sesión exitoso!');
+    window.location.href = 'index.html';
+  }
+}
