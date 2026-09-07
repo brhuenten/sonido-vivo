@@ -24,10 +24,36 @@
   </header>
 
   <main class="flex-grow container mx-auto px-4 py-10 flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-xl border border-poloblue w-full max-w-lg">
+      <h2 class="text-2xl font-bold text-scampi mb-6 text-center border-b pb-3">Contáctanos</h2>
 
+      <form class="space-y-4">
+        
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Nombre Completo:</label>
+          <input type="text" id="contactoNombre" placeholder="Tu Nombre" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        </div>
 
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Correo Electrónico:</label>
+          <input type="email" id="contactoCorreo" placeholder="ejemplo@dominio.com" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        </div>
 
-    
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Asunto:</label>
+          <input type="text" id="contactoAsunto" placeholder="Motivo de tu consulta" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-scampi mb-1">Mensaje:</label>
+          <textarea id="contactoMensaje" rows="4" placeholder="Escribe tu mensaje aquí..." class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4">
+          Enviar Mensaje
+        </button>
+      </form>
+    </div>
   </main>
 
   <footer class="bg-scampi text-azalea text-xs py-6 text-center">
