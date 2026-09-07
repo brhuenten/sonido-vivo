@@ -25,25 +25,30 @@
   <main class="flex-grow container mx-auto px-4 py-10 flex justify-center items-center">
     <div class="bg-white p-8 rounded-lg shadow-xl border border-poloblue w-full max-w-lg">
     <h2 class="text-2xl font-bold text-scampi mb-6 text-center border-b pb-3">Registro de Usuario</h2>
+    
     <form class="space-y-4">
       <div>
-        <label class="block text-sm font-semibold text-scampi mb-1">RUT:</label>
+        <label class="block text-sm font-semibold text-scampi mb-1">RUT:</label>       
         <input type="text" id="regRun" placeholder="Ej: 19876543k" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        <p id="errRun" class="text-red-500 text-xs mt-1 font-medium hidden">Formato de RUT inválido (entre 7 y 8 dígitos + dígito verificador, sin puntos ni guión).</p>
       </div>
 
       <div>
         <label class="block text-sm font-semibold text-scampi mb-1">Nombre Completo:</label>
         <input type="text" id="regNombre" placeholder="Tu Nombre" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        <p id="errNombre" class="text-red-500 text-xs mt-1 font-medium hidden">Debes ingresar tu nombre completo.</p>
       </div>
 
       <div>
         <label class="block text-sm font-semibold text-scampi mb-1">Correo Electrónico:</label>
         <input type="email" id="regCorreo" placeholder="ejemplo@email.cl" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        <p id="errCorreo" class="text-red-500 text-xs mt-1 font-medium hidden">Debe ingresar un correo correcto Ej: @gmail.</p>
       </div>
 
       <div>
         <label class="block text-sm font-semibold text-scampi mb-1">Contraseña:</label>
         <input type="password" id="regPass" placeholder="••••••••" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+        <p id="errPass" class="text-red-500 text-xs mt-1 font-medium hidden">La contraseña debe tener entre 4 y 10 caracteres.</p>
       </div>
 
       <button type="submit" class="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4">
