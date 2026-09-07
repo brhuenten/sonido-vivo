@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Tailwind CSS v4 directive; ignored by generic CSS linters. */
+/* stylelint-disable-next-line at-rule-no-unknown */
+@theme {
+  --color-bittersweet: #ff6e61;
+  --color-scampi: #6b5b95;
+  --color-chelsea: #87af4b;
+  --color-azalea: #f7cbca;
+  --color-poloblue: #93a9d2;
+}
