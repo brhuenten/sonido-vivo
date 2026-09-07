@@ -32,11 +32,13 @@
         <div>
           <label class="block text-sm font-semibold text-scampi mb-1">Correo Electrónico:</label>
           <input type="email" id="loginCorreo" placeholder="ejemplo@dominio.com" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+          <p id="errLoginCorreo" class="text-red-500 text-xs mt-1 font-medium hidden">Por favor ingresa un formato de correo válido (ejemplo@dominio.com).</p>  
         </div>
 
         <div>
           <label class="block text-sm font-semibold text-scampi mb-1">Contraseña:</label>
           <input type="password" id="loginPass" placeholder="••••••••" class="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet">
+          <p id="errLoginPass" class="text-red-500 text-xs mt-1 font-medium hidden">La contraseña debe contener entre 4 y 10 caracteres.</p>
         </div>
 
         <button type="submit" class="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4">
