@@ -17,9 +17,14 @@
         <a href="nosotros.html" class="hover:text-azalea">Nosotros</a>
       </nav>
       <div class="flex items-center space-x-4">
+
+        <button onclick="toggleCartModal()" class="relative bg-scampi border border-poloblue p-2 rounded-full hover:bg-poloblue/30 transition">
+          🛒 <span id="cartCount" class="absolute -top-1 -right-1 bg-bittersweet text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        </button>      
         <a href="registro.html" class="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition">Registrarse</a>
         <a href="login.html" class="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition">Ingresar</a>
-      </div>
+      
+        </div>
     </div>
   </header>
 
@@ -40,16 +45,33 @@
         Tapa de abeto, aros y fondo de meranti. Ideal para iniciantes.
       </p>
       <span class="inline-block bg-chelsea/20 text-chelsea text-xs font-bold px-3 py-1 rounded mb-4">Stock Disponible: 8 unidades</span>
+    <div class="space-y-3">
+        <button onclick="addToCart(1);" class="w-full bg-bittersweet text-white font-bold py-3 rounded-lg hover:bg-bittersweet/90 transition shadow">
+            Agregar al Carrito
+        </button>
+        <button onclick="window.location.href='index.html'" class="w-full bg-scampi text-white font-bold py-3 rounded-lg hover:bg-scampi/90 transition shadow">
+            Comprar Ahora
+        </button>
     </div>
-      <button onclick="window.location.href='index.html'" class="w-full bg-scampi text-white font-bold py-3 rounded-lg hover:bg-scampi/90 transition shadow">
-        Comprar Ahora
-      </button>
     </div>
   </div>
 </div>
-
-
 </main>
+
+  <div id="cartModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
+    <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-xl border-2 border-scampi">
+      <h3 class="text-xl font-bold border-b pb-2 mb-4 text-scampi">Mi Carrito de Compras</h3>
+      <div id="cartItems" class="space-y-3 max-h-60 overflow-y-auto"></div>
+      <div class="border-t pt-4 mt-4 flex justify-between items-center font-bold text-lg">
+        <span class="text-scampi">Total:</span>
+        <span id="cartTotal" class="text-bittersweet">$0</span>
+      </div>
+      <div class="mt-6 flex space-x-3">
+        <button onclick="toggleCartModal()" class="w-1/2 bg-poloblue text-white py-2 rounded font-semibold hover:bg-poloblue/80">Cerrar</button>
+        <button onclick="alert('Pedido completado'); carrito=[]; updateCartUI(); toggleCartModal();" class="w-1/2 bg-bittersweet text-white py-2 rounded font-semibold hover:bg-bittersweet/90">Pagar</button>
+      </div>
+    </div>
+  </div>
 
   <footer class="bg-scampi text-azalea text-xs py-6 text-center">
     <p>&copy; 2026 Tienda Sonido Vivo. Viña del Mar, Chile.</p>
