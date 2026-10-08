@@ -1,12 +1,14 @@
+import { Link } from 'react-router-dom';
+
 export default function Header({ cartCount, onOpenCart }) {
   return (
     <header className="bg-azalea text-white sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" className="text-2xl font-bold text-bittersweet tracking-wider">
+        <Link to="/" className="text-2xl font-bold text-bittersweet tracking-wider">
           SONIDO VIVO
-        </a>
+        </Link>
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
-          <a href="/" className="hover:text-azalea">Inicio</a>
+          <Link to="/" className="hover:text-azalea">Inicio</Link>
           <a href="/contacto" className="hover:text-azalea">Contacto</a>
           <a href="/nosotros" className="hover:text-azalea">Nosotros</a>
         </nav>
@@ -20,18 +22,18 @@ export default function Header({ cartCount, onOpenCart }) {
               {cartCount}
             </span>
           </button>
-          <a
-            href="/registro"
+          <Link
+            to="/registro"
             className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
           >
             Registrarse
-          </a>
-          <a
-            href="/login"
+          </Link>
+          <Link
+            to="/login"
             className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
           >
             Ingresar
-          </a>
+          </Link>
         </div>
       </div>
     </header>

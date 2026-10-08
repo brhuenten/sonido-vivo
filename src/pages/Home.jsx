@@ -1,3 +1,4 @@
+import { useOutletContext } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 
 // Importación de imágenes desde la carpeta assets
@@ -32,7 +33,9 @@ const PRODUCTS = [
   }
 ];
 
-export default function Home({ onAddToCart }) {
+export default function Home() {
+  const { onAddToCart } = useOutletContext();
+
   return (
     <main className="flex-grow container mx-auto px-4 py-6 space-y-6">
       <div className="bg-scampi text-white rounded-lg p-8 text-center shadow-lg">

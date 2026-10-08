@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function Register({ onNavigate }) {
+export default function Register() {
+  const navigate = useNavigate()
   const [run, setRun] = useState('')
   const [nombre, setNombre] = useState('')
   const [correo, setCorreo] = useState('')
@@ -40,7 +42,7 @@ export default function Register({ onNavigate }) {
     // Si no hay errores, se completa el registro
     if (Object.keys(newErrors).length === 0) {
       alert('¡Registro completado con éxito!')
-      if (onNavigate) onNavigate('login') // Redirige a la vista de Login
+      navigate('/login')
     }
   }
 

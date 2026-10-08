@@ -1,13 +1,10 @@
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CartModal from './components/CartModal';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -30,14 +27,9 @@ export default function App() {
       <Header
         cartCount={cart.length}
         onOpenCart={() => setIsCartOpen(true)}
-        onNavigate={setCurrentPage}
       />
 
-      <main className="flex-grow">
-        {currentPage === 'home' && <Home onAddToCart={handleAddToCart} />}
-        {currentPage === 'login' && <Login onNavigate={setCurrentPage} />}
-        {currentPage === 'register' && <Register onNavigate={setCurrentPage} />}
-      </main>
+      <Outlet context={{ onAddToCart: handleAddToCart }} />
 
       <Footer />
 

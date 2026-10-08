@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function Login({ onNavigate }) {
+export default function Login() {
+  const navigate = useNavigate()
   const [correo, setCorreo] = useState('')
   const [pass, setPass] = useState('')
   const [errors, setErrors] = useState({})
@@ -30,7 +32,7 @@ export default function Login({ onNavigate }) {
     // Si todo es válido (equivale a esValido === true)
     if (Object.keys(newErrors).length === 0) {
       alert('¡Inicio de sesión exitoso!')
-      if (onNavigate) onNavigate('home') // Equivale a window.location.href = 'index.html'
+      navigate('/')
     }
   }
 
