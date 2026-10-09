@@ -9,8 +9,8 @@ export default function Header({ cartCount, onOpenCart }) {
         </Link>
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
           <Link to="/" className="hover:text-azalea">Inicio</Link>
-          <a href="/contacto" className="hover:text-azalea">Contacto</a>
-          <a href="/nosotros" className="hover:text-azalea">Nosotros</a>
+          <Link to="/contacto" className="hover:text-azalea">Contacto</Link>
+          <Link to="/nosotros" className="hover:text-azalea">Nosotros</Link>
         </nav>
         <div className="flex items-center space-x-4">
           <button

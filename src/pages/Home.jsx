@@ -1,37 +1,6 @@
 import { useOutletContext } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-
-// Importación de imágenes desde la carpeta assets
-import GuitarraYamaha from '../assets/GuitarraYamaha.png';
-import GuitarraDreadnough from '../assets/GuitarraDreadnough.png';
-import GuitarraC40 from '../assets/GuitarraC40.png';
-
-const PRODUCTS = [
-  {
-    id: 1,
-    code: 'GA001',
-    stock: 8,
-    title: 'Guitarra Acústica Folk Yamaha',
-    price: 129990,
-    image: GuitarraYamaha
-  },
-  {
-    id: 2,
-    code: 'GA002',
-    stock: 5,
-    title: 'Guitarra Acústica Dreadnought Fender',
-    price: 189990,
-    image: GuitarraDreadnough
-  },
-  {
-    id: 3,
-    code: 'GA003',
-    stock: 10,
-    title: 'Guitarra Acústica Clásica 4/4 Yamaha',
-    price: 89990,
-    image: GuitarraC40
-  }
-];
+import { PRODUCTS } from '../data/products';
 
 export default function Home() {
   const { onAddToCart } = useOutletContext();

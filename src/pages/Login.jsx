@@ -14,7 +14,7 @@ export default function Login() {
     const passLimpia = pass.trim()
     const newErrors = {}
 
-    // Expresión regular exacta de tu JS original
+    
     const regexCorreo = /^[\w-.]+@[\w-]+\.[\w-]{2,}$/i
 
     // Validar Correo
@@ -29,7 +29,7 @@ export default function Login() {
 
     setErrors(newErrors)
 
-    // Si todo es válido (equivale a esValido === true)
+
     if (Object.keys(newErrors).length === 0) {
       alert('¡Inicio de sesión exitoso!')
       navigate('/')
