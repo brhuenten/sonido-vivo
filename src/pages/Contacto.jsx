@@ -48,7 +48,7 @@ export default function Contacto() {
       setCorreo('')
       setAsunto('')
       setMensaje('')
-      navigate('/') // Redirige al inicio tras enviar
+      navigate('/') 
     }
   }
 

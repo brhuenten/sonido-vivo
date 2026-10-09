@@ -3,8 +3,6 @@ import ProductCard from '../components/ProductCard';
 import { PRODUCTS } from '../data/products';
 
 export default function Home() {
-  const { onAddToCart } = useOutletContext();
-
   return (
     <main className="flex-grow container mx-auto px-4 py-6 space-y-6">
       <div className="bg-scampi text-white rounded-lg p-8 text-center shadow-lg">
@@ -20,7 +18,7 @@ export default function Home() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {PRODUCTS.map((product) => (
-          <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </main>
