@@ -1,108 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sonido Vivo - Pagina de Inicio</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-<body class="bg-azalea/30 text-gray-800 font-sans flex flex-col min-h-screen">
-
-  <header class="bg-scampi text-white sticky top-0 z-50 shadow-md">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="text-2xl font-bold text-bittersweet tracking-wider">SONIDO VIVO</a>
-      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
-        <a href="index.html" class="hover:text-azalea">Inicio</a>
-        <a href="contacto.html" class="hover:text-azalea">Contacto</a>
-        <a href="nosotros.html" class="hover:text-azalea">Nosotros</a>
-      </nav>
-      <div class="flex items-center space-x-4">
-        
-        <button onclick="toggleCartModal()" class="relative bg-scampi border border-poloblue p-2 rounded-full hover:bg-poloblue/30 transition">
-          🛒 <span id="cartCount" class="absolute -top-1 -right-1 bg-bittersweet text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
-        </button>
-        <a href="registro.html" class="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition">Registrarse</a>
-        <a href="login.html" class="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition">Ingresar</a>
-      
-      </div>
-    </div>
-  </header>
-
-  <main class="flex-grow container mx-auto px-4 py-6 space-y-6">
-
-    <div class="bg-scampi text-white rounded-lg p-8 text-center shadow-lg">
-      <h1 class="text-4xl font-extrabold mb-2 text-azalea">Bienvenido a Sonido Vivo</h1>
-      <p class="text-gray-100 max-w-xl mx-auto">Instrumentos musicales y audio profesional en Viña del Mar.</p>
-    </div>
-
-    <h2 class="text-2xl font-bold text-scampi border-b-2 border-poloblue pb-2">Productos:</h2>
-    
-    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <div class="bg-white p-4 rounded-lg shadow border border-poloblue flex flex-col justify-between">
-        <div>
-          <a href="producto.html">
-            <img src="./assets/img/GuitarraYamaha.png" alt="Guitarra Eléctrica Roja" class="w-full h-48 object-contain rounded mb-3 border border-azalea hover:opacity-90 transition">
-          </a>
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-xs text-gray-500 font-bold">Cod: GA001</span>
-            <span class="bg-chelsea/20 text-chelsea text-xs font-bold px-2 py-0.5 rounded">Stock: 8</span>
-          </div>
-          <a href="producto.html" class="font-bold text-scampi hover:text-bittersweet transition text-lg">Guitarra Acústica Folk Yamaha</a>
-          <p class="text-xl font-extrabold text-bittersweet mt-2">CLP $129.990</p>
-        </div>
-      </div>
-
-      <div class="bg-white p-4 rounded-lg shadow border border-poloblue flex flex-col justify-between">
-        <div>
-          <a href="producto2.html">
-            <img src="./assets/img/GuitarraDreadnough.png" alt="Guitarra Clásica Acústica" class="w-full h-48 object-contain rounded mb-3 border border-azalea hover:opacity-90 transition">
-          </a>
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-xs text-gray-500 font-bold">Cod: GA002</span>
-            <span class="bg-chelsea/20 text-chelsea text-xs font-bold px-2 py-0.5 rounded">Stock: 5</span>
-          </div>
-          <a href="producto.html" class="font-bold text-scampi hover:text-bittersweet transition text-lg">Guitarra Acústica Dreadnought Fender</a>
-          <p class="text-xl font-extrabold text-bittersweet mt-2">CLP $189.990</p>
-        </div>
-      </div>
-
-      <div class="bg-white p-4 rounded-lg shadow border border-poloblue flex flex-col justify-between">
-        <div>
-          <a href="producto3.html">
-            <img src="./assets/img/GuitarraC40.png" alt="Piano Digital Yamaha" class="w-full h-48 object-contain rounded mb-3 border border-azalea hover:opacity-90 transition">
-          </a>
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-xs text-gray-500 font-bold">Cod: GA003</span>
-            <span class="bg-chelsea/20 text-chelsea text-xs font-bold px-2 py-0.5 rounded">Stock: 10</span>
-          </div>
-          <a href="producto.html" class="font-bold text-scampi hover:text-bittersweet transition text-lg">Guitarra Guitarra Acústica Clásica 4/4 Yamaha</a>
-          <p class="text-xl font-extrabold text-bittersweet mt-2">CLP $89.990</p>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <div id="cartModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
-    <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-xl border-2 border-scampi">
-      <h3 class="text-xl font-bold border-b pb-2 mb-4 text-scampi">Mi Carrito de Compras</h3>
-      <div id="cartItems" class="space-y-3 max-h-60 overflow-y-auto"></div>
-      <div class="border-t pt-4 mt-4 flex justify-between items-center font-bold text-lg">
-        <span class="text-scampi">Total:</span>
-        <span id="cartTotal" class="text-bittersweet">$0</span>
-      </div>
-      <div class="mt-6 flex space-x-3">
-        <button onclick="toggleCartModal()" class="w-1/2 bg-poloblue text-white py-2 rounded font-semibold hover:bg-poloblue/80">Cerrar</button>
-        <button onclick="alert('Pedido completado'); carrito=[]; updateCartUI(); toggleCartModal();" class="w-1/2 bg-bittersweet text-white py-2 rounded font-semibold hover:bg-bittersweet/90">Pagar</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="bg-scampi text-azalea text-xs py-6 text-center">
-    <p>&copy; 2026 Tienda Sonido Vivo. Viña del Mar, Chile.</p>
-  </footer>
-
-  <script src="./js/app.js"></script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sonido-vivo</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* csslint-disable unknownAtRules */
+@theme {
+  --color-azalea: #f7c5cc;
+  --color-scampi: #665899;
+  --color-bittersweet: #ff6f11;
+  --color-poloblue: #8da9c4;
+  --color-chelsea: #2a9d8f;
+}
