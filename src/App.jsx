@@ -6,7 +6,6 @@ import Login from './pages/Login.jsx'
 import Registro from './pages/Registro.jsx'
 import Nosotros from './pages/Nosotros';
 import Contacto from './pages/Contacto';
-import Gracias from './pages/Gracias.jsx';
 import ProductoDetalle from './pages/ProductoDetalle.jsx'
 import NotFound from './pages/NotFound.jsx'
 
@@ -19,7 +18,6 @@ export default function App() {
           <Route path="registro" element={<Registro />} />        
           <Route path="nosotros" element={<Nosotros />} />
           <Route path="contacto" element={<Contacto />} />
-          <Route path="gracias" element={<Gracias />} />
           <Route path="products/:id" element={<ProductoDetalle />} />
           <Route path="*" element={<NotFound />} />
         </Route>
