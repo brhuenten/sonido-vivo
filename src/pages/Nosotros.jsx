@@ -1,4 +1,4 @@
-import fotoUbicacion from '../assets/FotoReferenciaUbi.jpg' 
+import fotoUbicacion from '../assets/img/FotoReferenciaUbi.jpg' 
 
 export default function Nosotros() {
   return (

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function Register() {
+export default function Registro() {
   const navigate = useNavigate()
   const [run, setRun] = useState('')
   const [nombre, setNombre] = useState('')

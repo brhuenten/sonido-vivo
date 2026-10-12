@@ -1,80 +1,62 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const inputClass =
+  'w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet';
 
 export default function Contacto() {
-  const navigate = useNavigate()
-  const [nombre, setNombre] = useState('')
-  const [correo, setCorreo] = useState('')
-  const [asunto, setAsunto] = useState('')
-  const [mensaje, setMensaje] = useState('')
-  const [errors, setErrors] = useState({})
+  const navigate = useNavigate();
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [asunto, setAsunto] = useState('');
+  const [mensaje, setMensaje] = useState('');
+  const [errores, setErrores] = useState({});
 
-  const handleContacto = (e) => {
-    e.preventDefault()
+  function enviar(event) {
+    event.preventDefault();
 
-    const nombreLimpio = nombre.trim()
-    const correoLimpio = correo.trim()
-    const asuntoLimpio = asunto.trim()
-    const mensajeLimpio = mensaje.trim()
-
-    const newErrors = {}
-
-    // Validar Nombre (mínimo 3 caracteres)
-    if (nombreLimpio.length < 3) {
-      newErrors.nombre = 'Por favor ingresa tu nombre (mínimo 3 caracteres).'
+    const next = {};
+    if (nombre.trim().length < 3) {
+      next.nombre = 'Por favor ingresa tu nombre (mínimo 3 caracteres).';
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo.trim())) {
+      next.correo = 'Por favor ingresa un correo válido (ejemplo@dominio.com).';
+    }
+    if (asunto.trim().length < 4) {
+      next.asunto = 'El asunto no puede estar vacío (mínimo 4 caracteres).';
+    }
+    if (mensaje.trim().length < 10) {
+      next.mensaje = 'El mensaje debe tener al menos 10 caracteres.';
     }
 
-    // Validar Correo Electrónico
-    if (!/^[\w-.]+@[\w-]+\.[\w-]{2,}$/i.test(correoLimpio)) {
-      newErrors.correo = 'Por favor ingresa un correo válido (ejemplo@dominio.com).'
-    }
+    setErrores(next);
+    if (Object.keys(next).length > 0) return;
 
-    // Validar Asunto (mínimo 4 caracteres)
-    if (asuntoLimpio.length < 4) {
-      newErrors.asunto = 'El asunto no puede estar vacío (mínimo 4 caracteres).'
-    }
-
-    // Validar Mensaje (mínimo 10 caracteres)
-    if (mensajeLimpio.length < 10) {
-      newErrors.mensaje = 'El mensaje debe tener al menos 10 caracteres.'
-    }
-
-    setErrors(newErrors)
-
-    // Si no hay errores, enviar formulario
-    if (Object.keys(newErrors).length === 0) {
-      alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.')
-      setNombre('')
-      setCorreo('')
-      setAsunto('')
-      setMensaje('')
-      navigate('/') 
-    }
+    navigate('/gracias', { state: { nombre } });
   }
 
   return (
-    <div className="w-full max-w-lg mx-auto my-10">
-      <div className="bg-white p-8 rounded-lg shadow-xl border border-poloblue">
+    <div className="flex-grow container mx-auto px-4 py-10 flex justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-xl border border-poloblue w-full max-w-lg">
         <h2 className="text-2xl font-bold text-scampi mb-6 text-center border-b pb-3">
           Contáctanos
         </h2>
 
-        <form onSubmit={handleContacto} className="space-y-4" noValidate>
+        <form onSubmit={enviar} className="space-y-4" noValidate>
           <div>
             <label className="block text-sm font-semibold text-scampi mb-1">
               Nombre Completo:
             </label>
             <input
               type="text"
+              id="contactoNombre"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Tu Nombre"
-              className="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"
+              className={inputClass}
             />
-            {errors.nombre && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.nombre}
-              </p>
+            {errores.nombre && (
+              <p className="text-red-500 text-xs mt-1 font-medium">{errores.nombre}</p>
             )}
           </div>
 
@@ -84,62 +66,55 @@ export default function Contacto() {
             </label>
             <input
               type="email"
+              id="contactoCorreo"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
               placeholder="ejemplo@dominio.com"
-              className="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"
+              className={inputClass}
             />
-            {errors.correo && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.correo}
-              </p>
+            {errores.correo && (
+              <p className="text-red-500 text-xs mt-1 font-medium">{errores.correo}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-scampi mb-1">
-              Asunto:
-            </label>
+            <label className="block text-sm font-semibold text-scampi mb-1">Asunto:</label>
             <input
               type="text"
+              id="contactoAsunto"
               value={asunto}
               onChange={(e) => setAsunto(e.target.value)}
               placeholder="Motivo de tu consulta"
-              className="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"
+              className={inputClass}
             />
-            {errors.asunto && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.asunto}
-              </p>
+            {errores.asunto && (
+              <p className="text-red-500 text-xs mt-1 font-medium">{errores.asunto}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-scampi mb-1">
-              Mensaje:
-            </label>
+            <label className="block text-sm font-semibold text-scampi mb-1">Mensaje:</label>
             <textarea
-              rows="4"
+              id="contactoMensaje"
+              rows={4}
               value={mensaje}
               onChange={(e) => setMensaje(e.target.value)}
               placeholder="Escribe tu mensaje aquí..."
-              className="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"
-            ></textarea>
-            {errors.mensaje && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.mensaje}
-              </p>
+              className={inputClass}
+            />
+            {errores.mensaje && (
+              <p className="text-red-500 text-xs mt-1 font-medium">{errores.mensaje}</p>
             )}
           </div>
 
           <button
             type="submit"
-            className="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4 cursor-pointer"
+            className="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4"
           >
             Enviar Mensaje
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }

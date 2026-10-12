@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-export default function ProductCard({ product, onAddToCart }) {
-  const detailPath = `/producto/${product.id}`;
+export default function ProductCard({ product}) {
+  const detailPath = `/products/${product.id}`;
 
   return (
     <div className="bg-white p-4 rounded-lg shadow border border-poloblue flex flex-col justify-between">
@@ -27,7 +27,6 @@ export default function ProductCard({ product, onAddToCart }) {
         </p>
       </div>
       <button
-        onClick={() => onAddToCart(product)}
         className="mt-4 bg-bittersweet text-white text-sm font-bold py-2 rounded hover:bg-bittersweet/90 transition w-full"
       >
         Agregar al Carrito

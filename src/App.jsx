@@ -1,44 +1,28 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import CartModal from './components/CartModal';
+import {} from 'react';
+import {  Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout.jsx'
+import Inicio from './pages/Inicio.jsx'
+import Login from './pages/Login.jsx'
+import Registro from './pages/Registro.jsx'
+import Nosotros from './pages/Nosotros';
+import Contacto from './pages/Contacto';
+import Gracias from './pages/Gracias.jsx';
+import ProductoDetalle from './pages/ProductoDetalle.jsx'
+import NotFound from './pages/NotFound.jsx'
 
 export default function App() {
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const handleAddToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
-  };
-
-  const handleCheckout = () => {
-    if (cart.length === 0) {
-      alert('Tu carrito está vacío.');
-      return;
-    }
-    alert('Pedido completado');
-    setCart([]);
-    setIsCartOpen(false);
-  };
-
-  return (
-    <div className="bg-azalea/30 text-gray-800 font-sans flex flex-col min-h-screen">
-      <Header
-        cartCount={cart.length}
-        onOpenCart={() => setIsCartOpen(true)}
-      />
-
-      <Outlet context={{ onAddToCart: handleAddToCart }} />
-
-      <Footer />
-
-      <CartModal
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cart}
-        onCheckout={handleCheckout}
-      />
-    </div>
+   return (
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Inicio />} />
+          <Route path="login" element={<Login />} />
+          <Route path="registro" element={<Registro />} />        
+          <Route path="nosotros" element={<Nosotros />} />
+          <Route path="contacto" element={<Contacto />} />
+          <Route path="gracias" element={<Gracias />} />
+          <Route path="products/:id" element={<ProductoDetalle />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
   );
 }
