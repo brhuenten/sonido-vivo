@@ -1,4 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
+import CartHeaderButton from './CartHeaderButton';
+import CartModal from './CartModal';
 
 export default function Layout() {
   return (
@@ -20,6 +22,7 @@ export default function Layout() {
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
+            <CartHeaderButton />
             <Link
               to="/Registro"
               className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
@@ -43,6 +46,8 @@ export default function Layout() {
       <footer className="bg-scampi text-azalea text-xs py-6 text-center">
         <p>&copy; 2026 Tienda Sonido Vivo. Viña del Mar, Chile.</p>
       </footer>
+
+      <CartModal />
     </>
   );
 }

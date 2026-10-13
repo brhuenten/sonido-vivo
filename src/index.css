@@ -7,4 +7,15 @@
   --color-bittersweet: #ff6f11;
   --color-poloblue: #8da9c4;
   --color-chelsea: #2a9d8f;
+
+  --animate-cart-slide-in: cart-slide-in 0.25s ease-out;
+}
+
+@keyframes cart-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

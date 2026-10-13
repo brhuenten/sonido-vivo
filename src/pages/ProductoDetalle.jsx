@@ -1,10 +1,24 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { useCartDrawer } from '../context/CartDrawerContext';
 import { buscarProducto } from '../data/products';
 
 export default function ProductoDetalle() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const { openDrawer } = useCartDrawer();
   const product = buscarProducto(id);
+
+  function handleAddToCart() {
+    addToCart(product);
+    openDrawer();
+  }
+
+  function handleBuyNow() {
+    addToCart(product);
+    openDrawer();
+  }
 
   if (!product) {
     return (
@@ -52,13 +66,14 @@ export default function ProductoDetalle() {
             <div className="space-y-3">
               <button
                 type="button"
+                onClick={handleAddToCart}
                 className="w-full bg-bittersweet text-white font-bold py-3 rounded-lg hover:bg-bittersweet/90 transition shadow"
               >
                 Agregar al Carrito
               </button>
               <button
                 type="button"
-                onClick={() => navigate('/')}
+                onClick={handleBuyNow}
                 className="w-full bg-scampi text-white font-bold py-3 rounded-lg hover:bg-scampi/90 transition shadow"
               >
                 Comprar Ahora
