@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import { useCartDrawer } from '../context/CartDrawerContext';
+import { useCart } from '../hooks/useCart.js';
+import { useCartDrawer } from '../hooks/useCartDrawer.js';
 
 export default function ProductCard({ product }) {
   const detailPath = `/products/${product.id}`;

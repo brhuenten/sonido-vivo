@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../hooks/useCart.js';
 import { validarDatosCheckout } from '../service/checkout.js';
 
 function numeroPedidoSimulado() {

@@ -1,5 +1,5 @@
-import { CartDrawerProvider } from './CartDrawerContext';
-import { CartProvider } from './CartContext';
+import { CartDrawerProvider } from './CartDrawerContext.jsx';
+import { CartProvider } from './CartContext.jsx';
 
 export default function CartProviders({ children }) {
   return (

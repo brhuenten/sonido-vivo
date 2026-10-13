@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext.jsx'
+import { useAuth } from '../hooks/useAuth.js'
 
 export default function RequireAuth({ adminOnly = false }) {
   const { estaLogueado, cargando, esAdmin } = useAuth()

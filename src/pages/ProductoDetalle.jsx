@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import { useCartDrawer } from '../context/CartDrawerContext';
+import { useCart } from '../hooks/useCart.js';
+import { useCartDrawer } from '../hooks/useCartDrawer.js';
 import { buscarProducto } from '../data/products';
 
 export default function ProductoDetalle() {

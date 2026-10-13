@@ -1,13 +1,36 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-
-const CartContext = createContext(null);
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { CartContext } from './cart-context.js';
+const CART_STORAGE_KEY = 'sonido-vivo-cart';
 
 function lineTotal(item) {
   return item.price * item.quantity;
 }
 
+function loadCartFromStorage() {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (item) =>
+        item &&
+        item.id != null &&
+        typeof item.quantity === 'number' &&
+        item.quantity > 0 &&
+        typeof item.price === 'number',
+    );
+  } catch {
+    return [];
+  }
+}
+
 export function CartProvider({ children }) {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(loadCartFromStorage);
+
+  useEffect(() => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  }, [items]);
 
   const addToCart = useCallback((product, quantity = 1) => {
     if (!product?.id) return;
@@ -78,12 +101,4 @@ export function CartProvider({ children }) {
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-}
-
-export function useCart() {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart debe usarse dentro de CartProvider');
-  }
-  return context;
 }

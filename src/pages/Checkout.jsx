@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useCart } from '../context/CartContext';
+import { useAuth } from '../hooks/useAuth.js';
+import { useCart } from '../hooks/useCart.js';
 import { TIENDA_DIRECCION, validarDatosCheckout } from '../service/checkout.js';
 
 const inputClass =
