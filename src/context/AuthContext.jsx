@@ -27,6 +27,10 @@ export function AuthProvider({ children }) {
     return sesion
   }, [])
 
+  const crearUsuarioDesdeAdmin = useCallback(async (datos) => {
+    return auth.crearUsuarioDesdeAdmin(datos)
+  }, [])
+
   const login = useCallback(async (email, password) => {
     const sesion = await auth.iniciarSesion({ email, password })
     setUsuario(sesion)
@@ -45,11 +49,12 @@ export function AuthProvider({ children }) {
       cargando,
       esAdmin: usuario?.rol === 'admin',
       registrar,
+      crearUsuarioDesdeAdmin,
       login,
       iniciarSesion: login,
       cerrarSesion,
     }),
-    [usuario, cargando, registrar, login, cerrarSesion],
+    [usuario, cargando, registrar, crearUsuarioDesdeAdmin, login, cerrarSesion],
   )
 
   return <AuthContext.Provider value={valor}>{children}</AuthContext.Provider>

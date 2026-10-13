@@ -7,6 +7,7 @@ import Registro from './pages/Registro.jsx'
 import Perfil from './pages/Perfil.jsx'
 import Logout from './pages/Logout.jsx'
 import Admin from './pages/Admin.jsx'
+import AdminNuevoUsuario from './pages/AdminNuevoUsuario.jsx'
 import Nosotros from './pages/Nosotros';
 import Contacto from './pages/Contacto';
 import ProductoDetalle from './pages/ProductoDetalle.jsx'
@@ -29,6 +30,7 @@ export default function App() {
           </Route>
           <Route element={<RequireAuth adminOnly />}>
             <Route path="admin" element={<Admin />} />
+            <Route path="admin/usuarios/nuevo" element={<AdminNuevoUsuario />} />
           </Route>
           <Route path="nosotros" element={<Nosotros />} />
           <Route path="contacto" element={<Contacto />} />
