@@ -1,15 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCartDrawer } from '../context/CartDrawerContext';
 
 export default function CartModal() {
-  const { items, total, removeFromCart, updateQuantity, clearCart } = useCart();
+  const navigate = useNavigate();
+  const { items, total, removeFromCart, updateQuantity } = useCart();
   const { isOpen, closeDrawer } = useCartDrawer();
 
   if (!isOpen) return null;
 
   function handleCheckout() {
-    clearCart();
     closeDrawer();
+    navigate('/checkout');
   }
 
   return (
