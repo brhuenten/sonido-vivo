@@ -1,5 +1,5 @@
-import { useCart } from '../context/CartContext';
-import { useCartDrawer } from '../context/CartDrawerContext';
+import { useCart } from '../hooks/useCart.js';
+import { useCartDrawer } from '../hooks/useCartDrawer.js';
 
 export default function CartHeaderButton() {
   const { itemCount } = useCart();

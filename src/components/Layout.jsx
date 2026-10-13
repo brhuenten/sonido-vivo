@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../hooks/useAuth.js';
 import CartHeaderButton from './CartHeaderButton';
 import CartModal from './CartModal';
 

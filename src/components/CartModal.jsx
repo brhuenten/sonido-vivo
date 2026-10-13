@@ -1,15 +1,17 @@
-import { useCart } from '../context/CartContext';
-import { useCartDrawer } from '../context/CartDrawerContext';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../hooks/useCart.js';
+import { useCartDrawer } from '../hooks/useCartDrawer.js';
 
 export default function CartModal() {
-  const { items, total, removeFromCart, updateQuantity, clearCart } = useCart();
+  const navigate = useNavigate();
+  const { items, total, removeFromCart, updateQuantity } = useCart();
   const { isOpen, closeDrawer } = useCartDrawer();
 
   if (!isOpen) return null;
 
   function handleCheckout() {
-    clearCart();
     closeDrawer();
+    navigate('/checkout');
   }
 
   return (
@@ -21,7 +23,7 @@ export default function CartModal() {
         onClick={closeDrawer}
       />
 
-      <aside className="relative flex h-full w-full max-w-md flex-col bg-white shadow-2xl border-l-2 border-scampi animate-cart-slide-in">
+      <aside className="relative flex h-full w-full max-w-md flex-col bg-white shadow-2xl border-l-2 border-scampi">
         <div className="flex items-center justify-between border-b border-poloblue px-6 py-4">
           <h3 className="text-xl font-bold text-scampi">Mi Carrito</h3>
           <button
