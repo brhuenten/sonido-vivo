@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { useCartDrawer } from '../context/CartDrawerContext';
 
-export default function ProductCard({ product}) {
+export default function ProductCard({ product }) {
   const detailPath = `/products/${product.id}`;
+  const { addToCart } = useCart();
+  const { openDrawer } = useCartDrawer();
+
+  function handleAddToCart() {
+    addToCart(product);
+    openDrawer();
+  }
 
   return (
     <div className="bg-white p-4 rounded-lg shadow border border-poloblue flex flex-col justify-between">
@@ -27,6 +36,8 @@ export default function ProductCard({ product}) {
         </p>
       </div>
       <button
+        type="button"
+        onClick={handleAddToCart}
         className="mt-4 bg-bittersweet text-white text-sm font-bold py-2 rounded hover:bg-bittersweet/90 transition w-full"
       >
         Agregar al Carrito
