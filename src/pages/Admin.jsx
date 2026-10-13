@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
 
 export default function Admin() {
   const { usuario } = useAuth()
+  const location = useLocation()
+  const mensajeExito = location.state?.mensajeExito
 
   return (
     <div className="flex-grow container mx-auto px-4 py-10 flex justify-center">
@@ -14,6 +16,15 @@ export default function Admin() {
           Bienvenido, {usuario?.nombre}. Desde aquí puedes gestionar la tienda Sonido Vivo.
         </p>
 
+        {mensajeExito && (
+          <p
+            className="mb-6 p-3 rounded border border-green-200 bg-green-50 text-green-800 text-sm text-center"
+            role="status"
+          >
+            {mensajeExito}
+          </p>
+        )}
+
         <ul className="space-y-3 text-sm">
           <li className="p-4 rounded border border-poloblue bg-azalea/20">
             <span className="font-semibold text-scampi">Inventario:</span>{' '}
@@ -23,9 +34,17 @@ export default function Admin() {
             <span className="font-semibold text-scampi">Pedidos:</span>{' '}
             consultar compras recientes de clientes.
           </li>
-          <li className="p-4 rounded border border-poloblue bg-azalea/20">
-            <span className="font-semibold text-scampi">Usuarios:</span>{' '}
-            administrar cuentas registradas en la plataforma.
+          <li className="p-4 rounded border border-poloblue bg-azalea/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <span>
+              <span className="font-semibold text-scampi">Usuarios:</span>{' '}
+              administrar cuentas registradas en la plataforma.
+            </span>
+            <Link
+              to="/admin/usuarios/nuevo"
+              className="shrink-0 text-center bg-scampi hover:bg-scampi/90 text-white font-bold py-2 px-4 rounded transition text-sm"
+            >
+              Nuevo Usuario
+            </Link>
           </li>
         </ul>
 
