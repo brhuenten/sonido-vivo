@@ -1,8 +1,10 @@
 import { Link, Outlet } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
 import CartHeaderButton from './CartHeaderButton';
 import CartModal from './CartModal';
 
 export default function Layout() {
+  const { estaLogueado, usuario, esAdmin } = useAuth();
   return (
     <>
       <header className="bg-azalea text-white sticky top-0 z-50 shadow-md">
@@ -23,18 +25,46 @@ export default function Layout() {
           </nav>
           <div className="flex items-center space-x-4">
             <CartHeaderButton />
-            <Link
-              to="/Registro"
-              className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
-            >
-              Registrarse
-            </Link>
-            <Link
-              to="/Login"
-              className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
-            >
-              Ingresar
-            </Link>
+            {estaLogueado ? (
+              <>
+                {esAdmin && (
+                  <Link
+                    to="/admin"
+                    className="text-white hover:text-bittersweet text-xs font-bold transition hidden sm:inline"
+                  >
+                    Admin
+                  </Link>
+                )}
+                <Link
+                  to="/perfil"
+                  className="text-white hover:text-bittersweet text-xs font-medium transition hidden sm:inline max-w-[8rem] truncate"
+                  title={usuario?.nombre}
+                >
+                  {usuario?.nombre}
+                </Link>
+                <Link
+                  to="/logout"
+                  className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
+                >
+                  Salir
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/registro"
+                  className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
+                >
+                  Registrarse
+                </Link>
+                <Link
+                  to="/login"
+                  className="bg-bittersweet hover:bg-bittersweet/90 text-white text-xs font-bold px-3 py-1.5 rounded transition"
+                >
+                  Ingresar
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>

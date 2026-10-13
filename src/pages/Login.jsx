@@ -1,92 +1,99 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
+
+const inputClass =
+  'w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet'
 
 export default function Login() {
+  const { estaLogueado, login } = useAuth()
   const navigate = useNavigate()
-  const [correo, setCorreo] = useState('')
-  const [pass, setPass] = useState('')
-  const [errors, setErrors] = useState({})
+  const location = useLocation()
+  const destino = location.state?.from ?? '/perfil'
 
-  const handleLogin = (e) => {
-    e.preventDefault()
+  const [form, setForm] = useState({ email: '', password: '' })
+  const [error, setError] = useState(null)
+  const [enviando, setEnviando] = useState(false)
 
-    const correoLimpio = correo.trim()
-    const passLimpia = pass.trim()
-    const newErrors = {}
+  if (estaLogueado) return <Navigate to={destino} replace />
 
-    
-    const regexCorreo = /^[\w-.]+@[\w-]+\.[\w-]{2,}$/i
+  function cambiar(event) {
+    setForm({ ...form, [event.target.name]: event.target.value })
+  }
 
-    // Validar Correo
-    if (!regexCorreo.test(correoLimpio)) {
-      newErrors.correo = 'Por favor ingresa un formato de correo válido (ejemplo@dominio.com).'
-    }
-
-    // Validar Contraseña (entre 4 y 10 caracteres)
-    if (passLimpia.length < 4 || passLimpia.length > 10) {
-      newErrors.pass = 'La contraseña debe contener entre 4 y 10 caracteres.'
-    }
-
-    setErrors(newErrors)
-
-
-    if (Object.keys(newErrors).length === 0) {
-      alert('¡Inicio de sesión exitoso!')
-      navigate('/')
+  async function enviar(event) {
+    event.preventDefault()
+    setError(null)
+    setEnviando(true)
+    try {
+      await login(form.email, form.password)
+      navigate(destino, { replace: true })
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setEnviando(false)
     }
   }
 
   return (
-    <div className="w-full max-w-md mx-auto my-10">
-      <div className="bg-white p-8 rounded-lg shadow-xl border border-poloblue">
+    <div className="flex-grow container mx-auto px-4 py-10 flex justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-xl border border-poloblue w-full max-w-md">
         <h2 className="text-2xl font-bold text-scampi mb-6 text-center border-b pb-3">
           Iniciar Sesión
         </h2>
 
-        <form onSubmit={handleLogin} className="space-y-4" noValidate>
+        <form onSubmit={enviar} className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-scampi mb-1">
-              Correo Electrónico:
+              Email
+              <input
+                name="email"
+                type="email"
+                required
+                value={form.email}
+                onChange={cambiar}
+                placeholder="ejemplo@dominio.com"
+                className={`${inputClass} mt-1`}
+              />
             </label>
-            <input
-              type="email"
-              value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
-              placeholder="ejemplo@dominio.com"
-              className="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"
-            />
-            {errors.correo && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.correo}
-              </p>
-            )}
           </div>
 
           <div>
             <label className="block text-sm font-semibold text-scampi mb-1">
-              Contraseña:
+              Contraseña
+              <input
+                name="password"
+                type="password"
+                required
+                value={form.password}
+                onChange={cambiar}
+                placeholder="••••••••"
+                className={`${inputClass} mt-1`}
+              />
             </label>
-            <input
-              type="password"
-              value={pass}
-              onChange={(e) => setPass(e.target.value)}
-              placeholder="••••••••"
-              className="w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet"
-            />
-            {errors.pass && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.pass}
-              </p>
-            )}
           </div>
+
+          {error && (
+            <p className="text-red-500 text-sm font-medium" role="alert">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"
-            className="w-full bg-bittersweet hover:bg-bittersweet/90 text-white font-bold py-2.5 rounded transition shadow mt-4 cursor-pointer"
+            disabled={enviando}
+            className="w-full bg-bittersweet hover:bg-bittersweet/90 disabled:opacity-60 text-white font-bold py-2.5 rounded transition shadow mt-4 cursor-pointer"
           >
-            Ingresar
+            {enviando ? 'Ingresando…' : 'Ingresar'}
           </button>
         </form>
+
+        <p className="text-center text-sm text-gray-600 mt-6">
+          ¿No tienes cuenta?{' '}
+          <Link to="/registro" className="text-bittersweet font-semibold hover:underline">
+            Regístrate
+          </Link>
+        </p>
       </div>
     </div>
   )
