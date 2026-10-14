@@ -1,56 +1,56 @@
 import { useCallback, useEffect, useState } from 'react'
 
-function resolveInitial(initialValue) {
-  return typeof initialValue === 'function' ? initialValue() : initialValue
+function resolverInicial(valorInicial) {
+  return typeof valorInicial === 'function' ? valorInicial() : valorInicial
 }
 
-export function useLocalStorage(key, initialValue) {
-  const readValue = useCallback(() => {
+export function useLocalStorage(clave, valorInicial) {
+  const leerValor = useCallback(() => {
     try {
-      const raw = localStorage.getItem(key)
-      if (raw == null) {
-        return resolveInitial(initialValue)
+      const crudo = localStorage.getItem(clave)
+      if (crudo == null) {
+        return resolverInicial(valorInicial)
       }
-      return JSON.parse(raw)
+      return JSON.parse(crudo)
     } catch {
-      return resolveInitial(initialValue)
+      return resolverInicial(valorInicial)
     }
-  }, [key, initialValue])
+  }, [clave, valorInicial])
 
-  const [storedValue, setStoredValue] = useState(readValue)
+  const [valorAlmacenado, setValorAlmacenado] = useState(leerValor)
 
-  const setValue = useCallback(
-    (value) => {
-      setStoredValue((prev) => {
-        const next = typeof value === 'function' ? value(prev) : value
-        localStorage.setItem(key, JSON.stringify(next))
-        return next
+  const establecerValor = useCallback(
+    (valor) => {
+      setValorAlmacenado((previo) => {
+        const siguiente = typeof valor === 'function' ? valor(previo) : valor
+        localStorage.setItem(clave, JSON.stringify(siguiente))
+        return siguiente
       })
     },
-    [key],
+    [clave],
   )
 
-  const syncFromStorage = useCallback(() => {
-    setStoredValue(readValue())
-  }, [readValue])
+  const sincronizarDesdeAlmacenamiento = useCallback(() => {
+    setValorAlmacenado(leerValor())
+  }, [leerValor])
 
   useEffect(() => {
-    function onStorage(event) {
-      if (event.key !== key || event.storageArea !== localStorage) return
-      if (event.newValue == null) {
-        setStoredValue(resolveInitial(initialValue))
+    function alCambiarAlmacenamiento(evento) {
+      if (evento.key !== clave || evento.storageArea !== localStorage) return
+      if (evento.newValue == null) {
+        setValorAlmacenado(resolverInicial(valorInicial))
         return
       }
       try {
-        setStoredValue(JSON.parse(event.newValue))
+        setValorAlmacenado(JSON.parse(evento.newValue))
       } catch {
-        setStoredValue(resolveInitial(initialValue))
+        setValorAlmacenado(resolverInicial(valorInicial))
       }
     }
 
-    window.addEventListener('storage', onStorage)
-    return () => window.removeEventListener('storage', onStorage)
-  }, [key, initialValue])
+    window.addEventListener('storage', alCambiarAlmacenamiento)
+    return () => window.removeEventListener('storage', alCambiarAlmacenamiento)
+  }, [clave, valorInicial])
 
-  return [storedValue, setValue, syncFromStorage]
+  return [valorAlmacenado, establecerValor, sincronizarDesdeAlmacenamiento]
 }

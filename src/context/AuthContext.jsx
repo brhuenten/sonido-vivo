@@ -46,8 +46,8 @@ export function AuthProvider({ children }) {
     [usuario?.id],
   )
 
-  const login = useCallback(async (email, password) => {
-    const sesion = await auth.iniciarSesion({ email, password })
+  const iniciarSesion = useCallback(async (correo, contrasena) => {
+    const sesion = await auth.iniciarSesion({ email: correo, password: contrasena })
     setUsuario(sesion)
     return sesion
   }, [])
@@ -67,8 +67,7 @@ export function AuthProvider({ children }) {
       crearUsuarioDesdeAdmin,
       obtenerUsuarioPorId,
       actualizarUsuarioDesdeAdmin,
-      login,
-      iniciarSesion: login,
+      iniciarSesion,
       cerrarSesion,
     }),
     [
@@ -78,7 +77,7 @@ export function AuthProvider({ children }) {
       crearUsuarioDesdeAdmin,
       obtenerUsuarioPorId,
       actualizarUsuarioDesdeAdmin,
-      login,
+      iniciarSesion,
       cerrarSesion,
     ],
   )

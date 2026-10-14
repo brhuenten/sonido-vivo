@@ -4,13 +4,13 @@ import { useCartDrawer } from '../hooks/useCartDrawer.js';
 
 export default function CartModal() {
   const navigate = useNavigate();
-  const { items, total, removeFromCart, updateQuantity } = useCart();
-  const { isOpen, closeDrawer } = useCartDrawer();
+  const { articulos, total, quitarDelCarrito, actualizarCantidad } = useCart();
+  const { estaAbierto, cerrarPanel } = useCartDrawer();
 
-  if (!isOpen) return null;
+  if (!estaAbierto) return null;
 
-  function handleCheckout() {
-    closeDrawer();
+  function irAPagar() {
+    cerrarPanel();
     navigate('/checkout');
   }
 
@@ -20,7 +20,7 @@ export default function CartModal() {
         type="button"
         aria-label="Cerrar carrito"
         className="absolute inset-0 bg-black/50"
-        onClick={closeDrawer}
+        onClick={cerrarPanel}
       />
 
       <aside className="relative flex h-full w-full max-w-md flex-col bg-white shadow-2xl border-l-2 border-scampi">
@@ -28,7 +28,7 @@ export default function CartModal() {
           <h3 className="text-xl font-bold text-scampi">Mi Carrito</h3>
           <button
             type="button"
-            onClick={closeDrawer}
+            onClick={cerrarPanel}
             className="text-scampi hover:text-bittersweet font-bold text-lg leading-none px-2"
             aria-label="Cerrar panel"
           >
@@ -37,19 +37,19 @@ export default function CartModal() {
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
-          {items.length === 0 ? (
+          {articulos.length === 0 ? (
             <p className="text-gray-500 text-center py-8">El carrito está vacío.</p>
           ) : (
-            items.map((item) => (
-              <div key={item.id} className="border border-poloblue rounded-lg p-3 space-y-2">
+            articulos.map((articulo) => (
+              <div key={articulo.id} className="border border-poloblue rounded-lg p-3 space-y-2">
                 <div className="flex justify-between gap-2">
                   <div>
-                    <p className="font-semibold text-scampi text-sm">{item.title}</p>
-                    <p className="text-xs text-gray-500">Cod: {item.code}</p>
+                    <p className="font-semibold text-scampi text-sm">{articulo.title}</p>
+                    <p className="text-xs text-gray-500">Cód: {articulo.code}</p>
                   </div>
                   <button
                     type="button"
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => quitarDelCarrito(articulo.id)}
                     className="text-xs text-red-600 hover:underline shrink-0"
                   >
                     Quitar
@@ -59,17 +59,17 @@ export default function CartModal() {
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => actualizarCantidad(articulo.id, articulo.quantity - 1)}
                       className="w-8 h-8 rounded border border-poloblue text-scampi font-bold hover:bg-poloblue/20"
                       aria-label="Disminuir cantidad"
                     >
                       −
                     </button>
-                    <span className="text-sm font-bold text-scampi w-6 text-center">{item.quantity}</span>
+                    <span className="text-sm font-bold text-scampi w-6 text-center">{articulo.quantity}</span>
                     <button
                       type="button"
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      disabled={item.quantity >= item.stock}
+                      onClick={() => actualizarCantidad(articulo.id, articulo.quantity + 1)}
+                      disabled={articulo.quantity >= articulo.stock}
                       className="w-8 h-8 rounded border border-poloblue text-scampi font-bold hover:bg-poloblue/20 disabled:opacity-40"
                       aria-label="Aumentar cantidad"
                     >
@@ -77,7 +77,7 @@ export default function CartModal() {
                     </button>
                   </div>
                   <span className="font-bold text-bittersweet text-sm">
-                    ${(item.price * item.quantity).toLocaleString('es-CL')}
+                    ${(articulo.price * articulo.quantity).toLocaleString('es-CL')}
                   </span>
                 </div>
               </div>
@@ -93,15 +93,15 @@ export default function CartModal() {
           <div className="flex gap-3">
             <button
               type="button"
-              onClick={closeDrawer}
+              onClick={cerrarPanel}
               className="w-1/2 bg-poloblue text-white py-2.5 rounded font-semibold hover:bg-poloblue/80 transition"
             >
               Seguir comprando
             </button>
             <button
               type="button"
-              onClick={handleCheckout}
-              disabled={items.length === 0}
+              onClick={irAPagar}
+              disabled={articulos.length === 0}
               className="w-1/2 bg-bittersweet text-white py-2.5 rounded font-semibold hover:bg-bittersweet/90 transition disabled:opacity-50"
             >
               Pagar

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
 
-const inputClass =
+const claseInput =
   'w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet'
 
 export default function Registro() {
@@ -22,34 +22,34 @@ export default function Registro() {
     return <Navigate to="/perfil" replace />
   }
 
-  async function handleRegistro(e) {
+  async function enviarRegistro(e) {
     e.preventDefault()
 
     const runLimpio = run.trim()
     const nombreLimpio = nombre.trim()
     const correoLimpio = correo.trim()
-    const newErrors = {}
+    const erroresValidacion = {}
 
     if (!/^[0-9]{7,8}[0-9kK]{1}$/.test(runLimpio)) {
-      newErrors.run =
+      erroresValidacion.run =
         'Formato de RUT inválido (entre 7 y 8 dígitos + dígito verificador, sin puntos ni guión).'
     }
     if (nombreLimpio.length < 2) {
-      newErrors.nombre = 'Debes ingresar tu nombre completo.'
+      erroresValidacion.nombre = 'Debes ingresar tu nombre completo.'
     }
     if (!/^[\w.-]+@[\w-]+\.[\w-]{2,}$/i.test(correoLimpio)) {
-      newErrors.correo =
+      erroresValidacion.correo =
         'Por favor ingresa un formato de correo electrónico válido (ejemplo@dominio.com).'
     }
     if (pass.length < 4 || pass.length > 10) {
-      newErrors.pass = 'La contraseña debe tener entre 4 y 10 caracteres.'
+      erroresValidacion.pass = 'La contraseña debe tener entre 4 y 10 caracteres.'
     }
     if (pass !== confirmar) {
-      newErrors.confirmar = 'Las contraseñas no coinciden.'
+      erroresValidacion.confirmar = 'Las contraseñas no coinciden.'
     }
 
-    setErrors(newErrors)
-    if (Object.keys(newErrors).length > 0) return
+    setErrors(erroresValidacion)
+    if (Object.keys(erroresValidacion).length > 0) return
 
     setError(null)
     setEnviando(true)
@@ -75,7 +75,7 @@ export default function Registro() {
           Registro de Usuario
         </h2>
 
-        <form onSubmit={handleRegistro} className="space-y-4" noValidate>
+        <form onSubmit={enviarRegistro} className="space-y-4" noValidate>
           <div>
             <label className="block text-sm font-semibold text-scampi mb-1">RUT:</label>
             <input
@@ -83,7 +83,7 @@ export default function Registro() {
               value={run}
               onChange={(e) => setRun(e.target.value)}
               placeholder="Ej: 19876543k"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.run && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.run}</p>
@@ -99,7 +99,7 @@ export default function Registro() {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Tu Nombre"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.nombre && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.nombre}</p>
@@ -115,7 +115,7 @@ export default function Registro() {
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
               placeholder="ejemplo@dominio.com"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.correo && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.correo}</p>
@@ -131,7 +131,7 @@ export default function Registro() {
               value={pass}
               onChange={(e) => setPass(e.target.value)}
               placeholder="••••••••"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.pass && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.pass}</p>
@@ -147,7 +147,7 @@ export default function Registro() {
               value={confirmar}
               onChange={(e) => setConfirmar(e.target.value)}
               placeholder="••••••••"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.confirmar && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.confirmar}</p>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const inputClass =
+const claseInput =
   'w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet';
 
 export default function Contacto() {
@@ -53,7 +53,7 @@ export default function Contacto() {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Tu Nombre"
-              className={inputClass}
+              className={claseInput}
             />
             {errores.nombre && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errores.nombre}</p>
@@ -70,7 +70,7 @@ export default function Contacto() {
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
               placeholder="ejemplo@dominio.com"
-              className={inputClass}
+              className={claseInput}
             />
             {errores.correo && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errores.correo}</p>
@@ -85,7 +85,7 @@ export default function Contacto() {
               value={asunto}
               onChange={(e) => setAsunto(e.target.value)}
               placeholder="Motivo de tu consulta"
-              className={inputClass}
+              className={claseInput}
             />
             {errores.asunto && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errores.asunto}</p>
@@ -100,7 +100,7 @@ export default function Contacto() {
               value={mensaje}
               onChange={(e) => setMensaje(e.target.value)}
               placeholder="Escribe tu mensaje aquí..."
-              className={inputClass}
+              className={claseInput}
             />
             {errores.mensaje && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errores.mensaje}</p>

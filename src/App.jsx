@@ -31,7 +31,7 @@ export default function App() {
             <Route path="checkout" element={<Checkout />} />
             <Route path="checkout/confirmacion" element={<CheckoutConfirmacion />} />
           </Route>
-          <Route element={<RequireAuth adminOnly />}>
+          <Route element={<RequireAuth soloAdmin />}>
             <Route path="admin" element={<Admin />} />
             <Route path="admin/usuarios/nuevo" element={<AdminNuevoUsuario />} />
             <Route path="admin/usuarios/:id/editar" element={<AdminEditarUsuario />} />

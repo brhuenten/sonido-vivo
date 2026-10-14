@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
 
-export default function RequireAuth({ adminOnly = false }) {
+export default function RequireAuth({ soloAdmin = false }) {
   const { estaLogueado, cargando, esAdmin } = useAuth()
   const location = useLocation()
 
@@ -17,7 +17,7 @@ export default function RequireAuth({ adminOnly = false }) {
     return <Navigate to="/login" state={{ from: location.pathname }} replace />
   }
 
-  if (adminOnly && !esAdmin) {
+  if (soloAdmin && !esAdmin) {
     return <Navigate to="/" replace />
   }
 

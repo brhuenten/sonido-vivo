@@ -10,18 +10,18 @@ function numeroPedidoSimulado() {
 export default function CheckoutConfirmacion() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { clearCart } = useCart();
+  const { vaciarCarrito } = useCart();
   const pedidoConfirmado = useRef(false);
 
-  const checkout = location.state?.checkout;
-  const errores = checkout ? validarDatosCheckout(checkout) : { general: 'No hay datos de checkout.' };
+  const datosCompra = location.state?.checkout;
+  const errores = datosCompra ? validarDatosCheckout(datosCompra) : { general: 'No hay datos de la compra.' };
   const esValido = Object.keys(errores).length === 0;
 
   useEffect(() => {
     if (!esValido || pedidoConfirmado.current) return;
     pedidoConfirmado.current = true;
-    clearCart();
-  }, [esValido, clearCart]);
+    vaciarCarrito();
+  }, [esValido, vaciarCarrito]);
 
   if (!esValido) {
     return (
@@ -56,7 +56,7 @@ export default function CheckoutConfirmacion() {
   }
 
   const numeroPedido = numeroPedidoSimulado();
-  const esRetiro = checkout.metodoEntrega === 'retiro';
+  const esRetiro = datosCompra.metodoEntrega === 'retiro';
 
   return (
     <div className="flex-grow container mx-auto px-4 py-10 flex justify-center">
@@ -75,7 +75,7 @@ export default function CheckoutConfirmacion() {
           </div>
           <div className="flex justify-between gap-4">
             <dt className="font-semibold text-scampi">Cliente</dt>
-            <dd className="text-gray-700 text-right">{checkout.cliente}</dd>
+            <dd className="text-gray-700 text-right">{datosCompra.cliente}</dd>
           </div>
           <div className="flex justify-between gap-4">
             <dt className="font-semibold text-scampi">Entrega</dt>
@@ -84,28 +84,28 @@ export default function CheckoutConfirmacion() {
           <div>
             <dt className="font-semibold text-scampi">{esRetiro ? 'Lugar de retiro' : 'Dirección'}</dt>
             <dd className="text-gray-700 mt-0.5">
-              {checkout.direccion}
+              {datosCompra.direccion}
               {!esRetiro && (
                 <>
-                  , {checkout.comuna}, {checkout.ciudad}
+                  , {datosCompra.comuna}, {datosCompra.ciudad}
                 </>
               )}
             </dd>
           </div>
           <div className="flex justify-between gap-4">
             <dt className="font-semibold text-scampi">Teléfono</dt>
-            <dd className="text-gray-700">{checkout.telefono}</dd>
+            <dd className="text-gray-700">{datosCompra.telefono}</dd>
           </div>
           <div className="flex justify-between gap-4 border-t border-poloblue pt-3 font-bold">
             <dt className="text-scampi">Total pagado</dt>
-            <dd className="text-bittersweet">${checkout.total.toLocaleString('es-CL')}</dd>
+            <dd className="text-bittersweet">${datosCompra.total.toLocaleString('es-CL')}</dd>
           </div>
         </dl>
 
         <div className="mb-6">
           <h3 className="text-sm font-semibold text-scampi mb-2">Productos</h3>
           <ul className="space-y-2 text-sm">
-            {checkout.items.map((item) => (
+            {datosCompra.items.map((item) => (
               <li key={item.id} className="flex justify-between text-gray-700">
                 <span>
                   {item.title} × {item.quantity}

@@ -2,31 +2,31 @@ import { useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
 
-const inputClass =
+const claseInput =
   'w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet'
 
 export default function Login() {
-  const { estaLogueado, login } = useAuth()
+  const { estaLogueado, iniciarSesion } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const destino = location.state?.from ?? '/perfil'
 
-  const [form, setForm] = useState({ email: '', password: '' })
+  const [formulario, setFormulario] = useState({ correo: '', contrasena: '' })
   const [error, setError] = useState(null)
   const [enviando, setEnviando] = useState(false)
 
   if (estaLogueado) return <Navigate to={destino} replace />
 
-  function cambiar(event) {
-    setForm({ ...form, [event.target.name]: event.target.value })
+  function cambiarCampo(evento) {
+    setFormulario({ ...formulario, [evento.target.name]: evento.target.value })
   }
 
-  async function enviar(event) {
-    event.preventDefault()
+  async function enviar(evento) {
+    evento.preventDefault()
     setError(null)
     setEnviando(true)
     try {
-      await login(form.email, form.password)
+      await iniciarSesion(formulario.correo, formulario.contrasena)
       navigate(destino, { replace: true })
     } catch (err) {
       setError(err.message)
@@ -45,15 +45,15 @@ export default function Login() {
         <form onSubmit={enviar} className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-scampi mb-1">
-              Email
+              Correo electrónico
               <input
-                name="email"
+                name="correo"
                 type="email"
                 required
-                value={form.email}
-                onChange={cambiar}
+                value={formulario.correo}
+                onChange={cambiarCampo}
                 placeholder="ejemplo@dominio.com"
-                className={`${inputClass} mt-1`}
+                className={`${claseInput} mt-1`}
               />
             </label>
           </div>
@@ -62,13 +62,13 @@ export default function Login() {
             <label className="block text-sm font-semibold text-scampi mb-1">
               Contraseña
               <input
-                name="password"
+                name="contrasena"
                 type="password"
                 required
-                value={form.password}
-                onChange={cambiar}
+                value={formulario.contrasena}
+                onChange={cambiarCampo}
                 placeholder="••••••••"
-                className={`${inputClass} mt-1`}
+                className={`${claseInput} mt-1`}
               />
             </label>
           </div>
