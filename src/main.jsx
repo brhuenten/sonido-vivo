@@ -6,14 +6,9 @@ import App from './App.jsx'
 import CartProviders from './context/CartProviders.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 
-const routerBasename =
-  import.meta.env.BASE_URL === './'
-    ? undefined
-    : import.meta.env.BASE_URL.replace(/\/$/, '') || undefined
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter basename={routerBasename}>
+    <HashRouter>
       <AuthProvider>
         <CartProviders>
           <App />
