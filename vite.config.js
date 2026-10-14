@@ -3,8 +3,11 @@ import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: process.env.VITE_APP_BASE || '/sonido-vivo/',
+export default defineConfig(({ command }) => ({
+  // En dev sirve desde `/`; en build usa subruta de GitHub Pages salvo VITE_APP_BASE.
+  base:
+    process.env.VITE_APP_BASE ??
+    (command === 'serve' ? '/' : '/sonido-vivo/'),
   plugins: [react(),
     tailwindcss()
   ],
@@ -14,4 +17,4 @@ export default defineConfig({
     setupFiles: './src/test/setup.js',
     globals: true,
   },
-})
+}))
