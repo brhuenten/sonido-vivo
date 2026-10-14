@@ -2,16 +2,16 @@ import { useCallback, useMemo, useState } from 'react';
 import { CartDrawerContext } from './cart-drawer-context.js';
 
 export function CartDrawerProvider({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [estaAbierto, setEstaAbierto] = useState(false);
 
-  const openDrawer = useCallback(() => setIsOpen(true), []);
-  const closeDrawer = useCallback(() => setIsOpen(false), []);
-  const toggleDrawer = useCallback(() => setIsOpen((open) => !open), []);
+  const abrirPanel = useCallback(() => setEstaAbierto(true), []);
+  const cerrarPanel = useCallback(() => setEstaAbierto(false), []);
+  const alternarPanel = useCallback(() => setEstaAbierto((abierto) => !abierto), []);
 
-  const value = useMemo(
-    () => ({ isOpen, openDrawer, closeDrawer, toggleDrawer }),
-    [isOpen, openDrawer, closeDrawer, toggleDrawer],
+  const valor = useMemo(
+    () => ({ estaAbierto, abrirPanel, cerrarPanel, alternarPanel }),
+    [estaAbierto, abrirPanel, cerrarPanel, alternarPanel],
   );
 
-  return <CartDrawerContext.Provider value={value}>{children}</CartDrawerContext.Provider>;
+  return <CartDrawerContext.Provider value={valor}>{children}</CartDrawerContext.Provider>;
 }

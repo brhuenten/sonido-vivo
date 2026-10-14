@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
 
-const inputClass =
+const claseInput =
   'w-full p-2 border border-poloblue rounded focus:outline-none focus:ring-2 focus:ring-bittersweet'
 
 export default function AdminNuevoUsuario() {
@@ -19,37 +19,37 @@ export default function AdminNuevoUsuario() {
   const [error, setError] = useState(null)
   const [enviando, setEnviando] = useState(false)
 
-  async function handleSubmit(e) {
+  async function enviarFormulario(e) {
     e.preventDefault()
 
     const runLimpio = run.trim()
     const nombreLimpio = nombre.trim()
     const correoLimpio = correo.trim()
-    const newErrors = {}
+    const erroresValidacion = {}
 
     if (!/^[0-9]{7,8}[0-9kK]{1}$/.test(runLimpio)) {
-      newErrors.run =
+      erroresValidacion.run =
         'Formato de RUT inválido (entre 7 y 8 dígitos + dígito verificador, sin puntos ni guión).'
     }
     if (nombreLimpio.length < 2) {
-      newErrors.nombre = 'Debes ingresar el nombre completo.'
+      erroresValidacion.nombre = 'Debes ingresar el nombre completo.'
     }
     if (!/^[\w.-]+@[\w-]+\.[\w-]{2,}$/i.test(correoLimpio)) {
-      newErrors.correo =
+      erroresValidacion.correo =
         'Por favor ingresa un formato de correo electrónico válido (ejemplo@dominio.com).'
     }
     if (!['trabajador', 'cliente'].includes(rol)) {
-      newErrors.rol = 'Selecciona un rol válido.'
+      erroresValidacion.rol = 'Selecciona un rol válido.'
     }
     if (pass.length < 4 || pass.length > 10) {
-      newErrors.pass = 'La contraseña debe tener entre 4 y 10 caracteres.'
+      erroresValidacion.pass = 'La contraseña debe tener entre 4 y 10 caracteres.'
     }
     if (pass !== confirmar) {
-      newErrors.confirmar = 'Las contraseñas no coinciden.'
+      erroresValidacion.confirmar = 'Las contraseñas no coinciden.'
     }
 
-    setErrors(newErrors)
-    if (Object.keys(newErrors).length > 0) return
+    setErrors(erroresValidacion)
+    if (Object.keys(erroresValidacion).length > 0) return
 
     setError(null)
     setEnviando(true)
@@ -84,7 +84,7 @@ export default function AdminNuevoUsuario() {
           Registra una cuenta de trabajador o cliente y asigna su rol.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <form onSubmit={enviarFormulario} className="space-y-4" noValidate>
           <div>
             <label className="block text-sm font-semibold text-scampi mb-1">RUT:</label>
             <input
@@ -92,7 +92,7 @@ export default function AdminNuevoUsuario() {
               value={run}
               onChange={(e) => setRun(e.target.value)}
               placeholder="Ej: 19876543k"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.run && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.run}</p>
@@ -108,7 +108,7 @@ export default function AdminNuevoUsuario() {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Nombre del usuario"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.nombre && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.nombre}</p>
@@ -124,7 +124,7 @@ export default function AdminNuevoUsuario() {
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
               placeholder="ejemplo@dominio.com"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.correo && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.correo}</p>
@@ -136,7 +136,7 @@ export default function AdminNuevoUsuario() {
             <select
               value={rol}
               onChange={(e) => setRol(e.target.value)}
-              className={inputClass}
+              className={claseInput}
             >
               <option value="cliente">Cliente</option>
               <option value="trabajador">Trabajador</option>
@@ -153,7 +153,7 @@ export default function AdminNuevoUsuario() {
               value={pass}
               onChange={(e) => setPass(e.target.value)}
               placeholder="••••••••"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.pass && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.pass}</p>
@@ -169,7 +169,7 @@ export default function AdminNuevoUsuario() {
               value={confirmar}
               onChange={(e) => setConfirmar(e.target.value)}
               placeholder="••••••••"
-              className={inputClass}
+              className={claseInput}
             />
             {errors.confirmar && (
               <p className="text-red-500 text-xs mt-1 font-medium">{errors.confirmar}</p>

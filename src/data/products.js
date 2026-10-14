@@ -3,7 +3,7 @@ import GuitarraDreadnough from '../assets/img/GuitarraDreadnough.png';
 import GuitarraC40 from '../assets/img/GuitarraC40.png';
 import GuitarraStratocaster from '../assets/img/GuitarraStratocaster.png';
 
-export const PRODUCTS = [
+export const PRODUCTOS = [
   { id: 1, code: 'GA001', stock: 8, title: 'Guitarra Acústica Folk Yamaha',
     model: 'F310', price: 129990, description: 'Tapa de abeto, aros y fondo de meranti. Ideal para iniciantes.',
     image: GuitarraYamaha,
@@ -23,15 +23,14 @@ export const PRODUCTS = [
   },
 ];
 
-export const CATEGORIAS = [...new Set(PRODUCTS.map((p) => p.categoria).filter(Boolean))]
+export const CATEGORIAS = [...new Set(PRODUCTOS.map((p) => p.categoria).filter(Boolean))]
 
 export const filtrarPorCategoria = (categoria) => {
-  if (!categoria || categoria === 'todas') return PRODUCTS
-  return PRODUCTS.filter((p) => p.categoria === categoria)
+  if (!categoria || categoria === 'todas') return PRODUCTOS
+  return PRODUCTOS.filter((p) => p.categoria === categoria)
 }
 
-export const buscarProducto = (id) => PRODUCTS.find((p) => p.id === Number(id))
+export const buscarProducto = (id) => PRODUCTOS.find((p) => p.id === Number(id))
 
 export const formatoPrecio = (valor) =>
   new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(valor)
-

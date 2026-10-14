@@ -13,14 +13,14 @@ export default function AdminUsuarios() {
   const location = useLocation()
   const mensajeExito = location.state?.mensajeExito
 
-  const [usuariosAlmacenados, , syncFromStorage] = useLocalStorage(
+  const [usuariosAlmacenados, , sincronizarDesdeAlmacenamiento] = useLocalStorage(
     USUARIOS_STORAGE_KEY,
     obtenerUsuariosAlmacenados,
   )
 
   useEffect(() => {
-    syncFromStorage()
-  }, [location.pathname, location.key, syncFromStorage])
+    sincronizarDesdeAlmacenamiento()
+  }, [location.pathname, location.key, sincronizarDesdeAlmacenamiento])
 
   const usuarios = useMemo(() => {
     if (!Array.isArray(usuariosAlmacenados)) return []

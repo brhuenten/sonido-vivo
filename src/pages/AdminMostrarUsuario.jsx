@@ -34,15 +34,15 @@ export default function AdminMostrarUsuario() {
 
     cargar()
 
-    function onStorage(event) {
-      if (event.key !== USUARIOS_STORAGE_KEY || event.storageArea !== localStorage) return
+    function alCambiarAlmacenamiento(evento) {
+      if (evento.key !== USUARIOS_STORAGE_KEY || evento.storageArea !== localStorage) return
       cargar()
     }
 
-    window.addEventListener('storage', onStorage)
+    window.addEventListener('storage', alCambiarAlmacenamiento)
     return () => {
       activo = false
-      window.removeEventListener('storage', onStorage)
+      window.removeEventListener('storage', alCambiarAlmacenamiento)
     }
   }, [id, obtenerUsuarioPorId])
 

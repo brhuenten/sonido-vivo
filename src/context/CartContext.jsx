@@ -1,24 +1,25 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CartContext } from './cart-context.js';
-const CART_STORAGE_KEY = 'sonido-vivo-cart';
 
-function lineTotal(item) {
-  return item.price * item.quantity;
+const CLAVE_ALMACEN_CARRITO = 'sonido-vivo-cart';
+
+function totalLinea(articulo) {
+  return articulo.price * articulo.quantity;
 }
 
-function loadCartFromStorage() {
+function cargarCarritoDesdeAlmacenamiento() {
   try {
-    const raw = localStorage.getItem(CART_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (item) =>
-        item &&
-        item.id != null &&
-        typeof item.quantity === 'number' &&
-        item.quantity > 0 &&
-        typeof item.price === 'number',
+    const crudo = localStorage.getItem(CLAVE_ALMACEN_CARRITO);
+    if (!crudo) return [];
+    const parseado = JSON.parse(crudo);
+    if (!Array.isArray(parseado)) return [];
+    return parseado.filter(
+      (articulo) =>
+        articulo &&
+        articulo.id != null &&
+        typeof articulo.quantity === 'number' &&
+        articulo.quantity > 0 &&
+        typeof articulo.price === 'number',
     );
   } catch {
     return [];
@@ -26,79 +27,90 @@ function loadCartFromStorage() {
 }
 
 export function CartProvider({ children }) {
-  const [items, setItems] = useState(loadCartFromStorage);
+  const [articulos, setArticulos] = useState(cargarCarritoDesdeAlmacenamiento);
 
   useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem(CLAVE_ALMACEN_CARRITO, JSON.stringify(articulos));
+  }, [articulos]);
 
-  const addToCart = useCallback((product, quantity = 1) => {
-    if (!product?.id) return;
+  const agregarAlCarrito = useCallback((producto, cantidad = 1) => {
+    if (!producto?.id) return;
 
-    setItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      const nextQty = (existing?.quantity ?? 0) + quantity;
-      const cappedQty = Math.min(nextQty, product.stock);
+    setArticulos((prev) => {
+      const existente = prev.find((articulo) => articulo.id === producto.id);
+      const cantidadSiguiente = (existente?.quantity ?? 0) + cantidad;
+      const cantidadTope = Math.min(cantidadSiguiente, producto.stock);
 
-      if (cappedQty <= 0) return prev;
+      if (cantidadTope <= 0) return prev;
 
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: cappedQty } : item,
+      if (existente) {
+        return prev.map((articulo) =>
+          articulo.id === producto.id ? { ...articulo, quantity: cantidadTope } : articulo,
         );
       }
 
       return [
         ...prev,
         {
-          id: product.id,
-          code: product.code,
-          title: product.title,
-          price: product.price,
-          stock: product.stock,
-          quantity: Math.min(quantity, product.stock),
+          id: producto.id,
+          code: producto.code,
+          title: producto.title,
+          price: producto.price,
+          stock: producto.stock,
+          quantity: Math.min(cantidad, producto.stock),
         },
       ];
     });
   }, []);
 
-  const removeFromCart = useCallback((productId) => {
-    setItems((prev) => prev.filter((item) => item.id !== productId));
+  const quitarDelCarrito = useCallback((idProducto) => {
+    setArticulos((prev) => prev.filter((articulo) => articulo.id !== idProducto));
   }, []);
 
-  const updateQuantity = useCallback((productId, quantity) => {
-    setItems((prev) =>
+  const actualizarCantidad = useCallback((idProducto, cantidad) => {
+    setArticulos((prev) =>
       prev
-        .map((item) => {
-          if (item.id !== productId) return item;
-          const next = Math.max(0, Math.min(quantity, item.stock));
-          return next === 0 ? null : { ...item, quantity: next };
+        .map((articulo) => {
+          if (articulo.id !== idProducto) return articulo;
+          const siguiente = Math.max(0, Math.min(cantidad, articulo.stock));
+          return siguiente === 0 ? null : { ...articulo, quantity: siguiente };
         })
         .filter(Boolean),
     );
   }, []);
 
-  const clearCart = useCallback(() => setItems([]), []);
+  const vaciarCarrito = useCallback(() => setArticulos([]), []);
 
-  const itemCount = useMemo(
-    () => items.reduce((acc, item) => acc + item.quantity, 0),
-    [items],
+  const cantidadArticulos = useMemo(
+    () => articulos.reduce((acum, articulo) => acum + articulo.quantity, 0),
+    [articulos],
   );
 
-  const total = useMemo(() => items.reduce((acc, item) => acc + lineTotal(item), 0), [items]);
+  const total = useMemo(
+    () => articulos.reduce((acum, articulo) => acum + totalLinea(articulo), 0),
+    [articulos],
+  );
 
-  const value = useMemo(
+  const valor = useMemo(
     () => ({
-      items,
-      itemCount,
+      articulos,
+      cantidadArticulos,
       total,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
+      agregarAlCarrito,
+      quitarDelCarrito,
+      actualizarCantidad,
+      vaciarCarrito,
     }),
-    [items, itemCount, total, addToCart, removeFromCart, updateQuantity, clearCart],
+    [
+      articulos,
+      cantidadArticulos,
+      total,
+      agregarAlCarrito,
+      quitarDelCarrito,
+      actualizarCantidad,
+      vaciarCarrito,
+    ],
   );
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={valor}>{children}</CartContext.Provider>;
 }
