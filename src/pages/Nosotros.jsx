@@ -39,7 +39,7 @@ export default function Nosotros() {
             <img
               src={fotoUbicacion}
               alt="Mapa de ubicación Sonido Vivo"
-              className="w-full h-64 object-cover hover:scale-105 transition duration-300"
+              className="w-full h-auto block hover:scale-105 transition duration-300"
             />
           </div>
         </div>
