@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { limpiarAlmacenamiento, loginCliente } from './helpers.js'
+import { ir, limpiarAlmacenamiento, loginCliente } from './helpers.js'
 
 test.describe('Checkout', () => {
   test.beforeEach(async ({ page }) => {
@@ -23,7 +23,7 @@ test.describe('Checkout', () => {
     await expect(page).toHaveURL(/#\/checkout\/confirmacion/)
     await expect(page.getByRole('heading', { name: '¡Compra confirmada!' })).toBeVisible()
 
-    await page.goto('/#/checkout')
+    await ir(page, '/checkout')
     await expect(page.getByText(/carrito está vacío/i)).toBeVisible()
   })
 })
