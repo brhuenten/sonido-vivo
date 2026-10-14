@@ -134,6 +134,97 @@ export async function crearUsuarioDesdeAdmin({ run, nombre, email, password, rol
   return usuarioPublico(nuevo)
 }
 
+function sincronizarSesionSiCoincide(usuarioActualizado) {
+  try {
+    const raw = localStorage.getItem(SESION_KEY)
+    if (!raw) return
+    const sesion = JSON.parse(raw)
+    if (sesion.id === usuarioActualizado.id) {
+      localStorage.setItem(SESION_KEY, JSON.stringify(usuarioPublico(usuarioActualizado)))
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
+export async function listarUsuariosAdmin() {
+  await pausa(50)
+  return leerUsuarios().map((u) => usuarioPublico(u))
+}
+
+export async function obtenerUsuarioPorId(id) {
+  await pausa(50)
+  const usuarios = leerUsuarios()
+  const encontrado = usuarios.find((u) => u.id === id)
+  return usuarioPublico(encontrado) ?? null
+}
+
+export async function actualizarUsuarioDesdeAdmin(
+  id,
+  { run, nombre, email, password, rol },
+) {
+  await pausa()
+
+  const usuarios = leerUsuarios()
+  const indice = usuarios.findIndex((u) => u.id === id)
+  if (indice === -1) {
+    throw new Error('Usuario no encontrado.')
+  }
+
+  const actual = usuarios[indice]
+
+  const runLimpio = String(run ?? '').trim()
+  const nombreLimpio = String(nombre ?? '').trim()
+  const emailLimpio = String(email ?? '').trim().toLowerCase()
+  const rolLimpio = String(rol ?? '').trim().toLowerCase()
+  const passNueva = String(password ?? '').trim()
+
+  if (!/^[0-9]{7,8}[0-9kK]{1}$/.test(runLimpio)) {
+    throw new Error('Formato de RUT inválido.')
+  }
+  if (nombreLimpio.length < 2) {
+    throw new Error('Debes ingresar el nombre completo.')
+  }
+  if (!/^[\w.-]+@[\w-]+\.[\w-]{2,}$/i.test(emailLimpio)) {
+    throw new Error('Correo electrónico inválido.')
+  }
+
+  if (actual.rol === 'admin') {
+    if (rolLimpio !== 'admin') {
+      throw new Error('No se puede cambiar el rol del administrador.')
+    }
+  } else if (!ROLES_CREACION_ADMIN.includes(rolLimpio)) {
+    throw new Error('Debes seleccionar un rol válido (trabajador o cliente).')
+  }
+
+  if (usuarios.some((u) => u.id !== id && u.email === emailLimpio)) {
+    throw new Error('Ya existe otra cuenta con ese correo.')
+  }
+
+  let passFinal = actual.password
+  if (passNueva.length > 0) {
+    if (passNueva.length < 4 || passNueva.length > 10) {
+      throw new Error('La contraseña debe tener entre 4 y 10 caracteres.')
+    }
+    passFinal = passNueva
+  }
+
+  const actualizado = {
+    ...actual,
+    run: runLimpio.toLowerCase(),
+    nombre: nombreLimpio,
+    email: emailLimpio,
+    password: passFinal,
+    rol: actual.rol === 'admin' ? 'admin' : rolLimpio,
+  }
+
+  const copia = [...usuarios]
+  copia[indice] = actualizado
+  guardarUsuarios(copia)
+  sincronizarSesionSiCoincide(actualizado)
+  return usuarioPublico(actualizado)
+}
+
 export async function iniciarSesion({ email, password }) {
   await pausa()
 

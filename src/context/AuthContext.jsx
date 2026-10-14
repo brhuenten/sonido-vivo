@@ -31,6 +31,21 @@ export function AuthProvider({ children }) {
     return auth.crearUsuarioDesdeAdmin(datos)
   }, [])
 
+  const obtenerUsuarioPorId = useCallback(async (id) => {
+    return auth.obtenerUsuarioPorId(id)
+  }, [])
+
+  const actualizarUsuarioDesdeAdmin = useCallback(
+    async (id, datos) => {
+      const actualizado = await auth.actualizarUsuarioDesdeAdmin(id, datos)
+      if (usuario?.id === actualizado.id) {
+        setUsuario(actualizado)
+      }
+      return actualizado
+    },
+    [usuario?.id],
+  )
+
   const login = useCallback(async (email, password) => {
     const sesion = await auth.iniciarSesion({ email, password })
     setUsuario(sesion)
@@ -50,11 +65,22 @@ export function AuthProvider({ children }) {
       esAdmin: usuario?.rol === 'admin',
       registrar,
       crearUsuarioDesdeAdmin,
+      obtenerUsuarioPorId,
+      actualizarUsuarioDesdeAdmin,
       login,
       iniciarSesion: login,
       cerrarSesion,
     }),
-    [usuario, cargando, registrar, crearUsuarioDesdeAdmin, login, cerrarSesion],
+    [
+      usuario,
+      cargando,
+      registrar,
+      crearUsuarioDesdeAdmin,
+      obtenerUsuarioPorId,
+      actualizarUsuarioDesdeAdmin,
+      login,
+      cerrarSesion,
+    ],
   )
 
   return <AuthContext.Provider value={valor}>{children}</AuthContext.Provider>

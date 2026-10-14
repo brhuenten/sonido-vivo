@@ -39,12 +39,20 @@ export default function Admin() {
               <span className="font-semibold text-scampi">Usuarios:</span>{' '}
               administrar cuentas registradas en la plataforma.
             </span>
-            <Link
-              to="/admin/usuarios/nuevo"
-              className="shrink-0 text-center bg-scampi hover:bg-scampi/90 text-white font-bold py-2 px-4 rounded transition text-sm"
-            >
-              Nuevo Usuario
-            </Link>
+            <div className="flex flex-wrap gap-2 shrink-0">
+              <Link
+                to="/admin/usuarios"
+                className="text-center border border-scampi text-scampi font-bold py-2 px-4 rounded hover:bg-scampi/5 transition text-sm"
+              >
+                Gestionar usuarios
+              </Link>
+              <Link
+                to="/admin/usuarios/nuevo"
+                className="text-center bg-scampi hover:bg-scampi/90 text-white font-bold py-2 px-4 rounded transition text-sm"
+              >
+                Nuevo Usuario
+              </Link>
+            </div>
           </li>
         </ul>
 
