@@ -5,6 +5,7 @@ Como iniciar el proyecto:
 3. usar npm run dev para ejecutar la pagina en un servidor local
 
 Perfiles de prueba para probar funcionalidades de la pagina:
+
 Usuario:
 Correo: cliente@sonidovivo.cl
 Contraseña: cliente
@@ -15,6 +16,7 @@ Contraseña: admin1
 
 
 Notas:
-
+- Para los test con Vitest usar npm run test:run
+- Para los test con Playwright usar npm run test:e2e o  npm run test:e2e:ui
 - Si cambiaste contraseñas o borraste usuarios en el navegador, limpia `localStorage` (clave `sonido_vivo_usuarios`) o usa una ventana privada para volver a los datos iniciales.
 - También puedes registrar nuevos usuarios desde `/#/registro`; quedarán almacenados junto a los de prueba.

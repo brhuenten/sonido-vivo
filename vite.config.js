@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/sonido-vivo/',
+  base: process.env.VITE_APP_BASE || '/sonido-vivo/',
   plugins: [react(),
     tailwindcss()
   ],
