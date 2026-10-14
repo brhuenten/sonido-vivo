@@ -1,4 +1,5 @@
-const USUARIOS_KEY = 'sonido_vivo_usuarios'
+export const USUARIOS_STORAGE_KEY = 'sonido_vivo_usuarios'
+const USUARIOS_KEY = USUARIOS_STORAGE_KEY
 const SESION_KEY = 'sonido_vivo_sesion'
 
 const USUARIO_ADMIN = {
@@ -145,6 +146,10 @@ function sincronizarSesionSiCoincide(usuarioActualizado) {
   } catch {
     /* ignore */
   }
+}
+
+export function obtenerUsuariosAlmacenados() {
+  return leerUsuarios()
 }
 
 export async function listarUsuariosAdmin() {

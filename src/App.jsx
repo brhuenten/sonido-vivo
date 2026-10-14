@@ -10,6 +10,7 @@ import Admin from './pages/Admin.jsx'
 import AdminNuevoUsuario from './pages/AdminNuevoUsuario.jsx'
 import AdminUsuarios from './pages/AdminUsuarios.jsx'
 import AdminEditarUsuario from './pages/AdminEditarUsuario.jsx'
+import AdminMostrarUsuario from './pages/AdminMostrarUsuario.jsx'
 import Nosotros from './pages/Nosotros';
 import Contacto from './pages/Contacto';
 import ProductoDetalle from './pages/ProductoDetalle.jsx'
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="admin" element={<Admin />} />
             <Route path="admin/usuarios/nuevo" element={<AdminNuevoUsuario />} />
             <Route path="admin/usuarios/:id/editar" element={<AdminEditarUsuario />} />
+            <Route path="admin/usuarios/:id" element={<AdminMostrarUsuario />} />
             <Route path="admin/usuarios" element={<AdminUsuarios />} />
           </Route>
           <Route path="nosotros" element={<Nosotros />} />
